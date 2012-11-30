@@ -1,0 +1,210 @@
+Application:	Executive Dashboard– HTML5  
+Version:	1.2
+Document:	Readme
+Date:		November 29, 2012
+Author:		CyberTech Systems and Software Ltd.
+
+Description
+The Executive Dashboard template is a HTML5 application and it allows mayors, executives and other decision makers in a local government to review key performance indicators / metrics and geographic concentrations (hotspots) of such. Allows executives and decision makers to review special events and capital projects occurring within their community. Allows decisions makers to monitor the performance and pulse of their community and communicate with their management team and constituents.
+
+Package Contents
+ExecutiveDashboard: Folder containing web application and configuration file
+Readme.pdf : Deployment and configuration guide
+
+Minimum System Requirements
+•	Application Web Server
+o	P-IV with 1 GB RAM and 40 GB Hard Disk
+o	IIS 5.0 or higher
+o	Win 2K Server or above
+•	GIS Server
+o	P-IV with 1 GB RAM and 40 GB Hard Disk
+o	IIS 5.0 or higher 
+o	ArcGIS Desktop 10, ArcGIS Server 10 and ArcSDE 10
+o	.NET framework 3.5 with Service Pack 1
+•	Network Requirements
+o	LAN connectivity
+o	Broadband internet connection
+•	 Client Requirements
+o	Web browser with JavaScript enabled
+•	Screen Resolution
+o	1024 x 768 high color, 32-bit or higher
+
+
+
+ 
+Configuration 
+You can configure the ExecutiveDashboard Template in your environment. To complete the configuration, you will need experience with Microsoft’s Internet Information Server (IIS). If you are new to JavaScript Viewers, this template will demonstrate a pattern you can use to deploy your own HTML5 application.
+
+1.	Copy the “ExecutiveDashboard” directory onto your web server so that it can be accessed as a website or virtual directory.
+Example: Copy the “ExecutiveDashboard” directory under C:\Inetpub\wwwroot for Microsoft IIS web servers. 
+2.	This application uses a proxy file provided by ESRI. The proxy file is available in three different languages (ASP.NET, PHP and JSP). Current application uses ASP.NET proxy file. If you wish to use a different proxy file please click here. For ASP.NET proxy file, change the REST end point to the ArcGIS REST service URL in the proxy.config file.
+3.	Go to IIS, right-click on the parent directory of the copied files, select “Convert To Application” and set the application pool to ASP.NET v4.0.
+Note: If you want to use a different version of ASP.NET, please follow the steps below.
+1.	Open the source folder as a website in Visual Studio
+2.	Right-click on website, go to properties and change the .NET target framework to desired version 
+3.	Publish the website
+4.	The “ExecutiveDashboard” directory contains config.js which is the main configuration file. To modify any configuration values, open config.js file using a text editor like Notepad. Make necessary changes to the JSON objects. See the "Description of Configuration Tags" section below for more information.
+5.	Test the application in a browser by entering the URL to the default.htm page. 
+Example: http://<server>/ExecutiveDashboard/default.htm
+Substitute "<server>" with name of your server. Please note: "default.htm" may not be defined as a default document on your web server.
+
+ 
+Description of Configuration Tags (Config.js)
+ApplicationName: Set application title.
+ApplicationName :"Executive Dashboard",
+
+WelcomeScreenMessage: Message that appears when the application starts. 
+WelcomeScreenMessage: "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.",
+
+HelpURL: Set URL of help page/portal.
+HelpURL: "help.htm",
+
+BaseMapLayer: Set baseMap layer value.
+ BaseMapLayer:
+          [
+            {
+              MapValue: "Basemap"
+            }
+          ],
+
+AuthenticatedLinks: Links to generate tokens with the credentials .  
+AuthenticatedLinks: "http://www.arcgis.com/sharing/rest/content/groups/${0}?f=json&token=${0}" ,
+
+AuthenticatedGroup: Group id for dashboard group.
+AuthenticatedGroup: "55b4ec3619fe4363be3d3de2639302b0",
+
+BookmarkHeader: Title for bookmarks header.        
+BookmarkHeader: "Bookmarks",
+
+RetainState: Flag for retaining the state of containers .(Bookmark,Address)
+RetainState: true,
+
+GraphTabName :Title for the graph container tab.
+GraphTabName: "Trend",
+
+ FormatDateAs: Set date format
+ FormatDateAs: "MMM dd, yyyy",
+
+ ShowNullValueAs: Set string value to be shown for null or blank values.
+  ShowNullValueAs: "N/A",
+
+LocatorSettings: Set locator settings
+LocatorSettings: {
+        DefaultLocatorSymbol: "images/Pushpin.png",
+        MarkupSymbolSize: { width: 35, height: 35 },
+        DefaultValue: "1848 N Mill St Naperville IL 60563",
+        LocatorParamaters: ["SingleLine"],
+        LocatorURL:    "http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer",
+        CandidateFields: "Loc_name, Score, Match_addr",
+        DisplayField: "${Match_addr}",
+        ZoomLevel: 14,
+        AddressMatchScore: 80,
+        LocatorFieldName: 'Loc_name',
+        LocatorFieldValues: ["US_RoofTop", "US_StreetName"]
+  },
+   
+RSSFields: Fields for RSS Feed.
+RSSFields: ["item", "title", "link", "description"],
+
+TwitterDetails: Link and fields for twitter trend.
+TwitterDetails: 
+        [
+          { TwitterURL: "http://search.twitter.com/search.rss" },
+          { Fields: ["item", "author", "link", "description"] }
+        ],
+
+DefaultNewsFields: Default values to set the RSS Feed and Twitter trend.
+DefaultNewsFields: [
+    { RSSFeedName: "Naperville", RSSFeedURL: "http://www.naperville.il.us/News_rss.aspx" },
+    { TwitterTrendName: "ESRI" }
+    ],
+
+WelcomeScreenImages: Set headers and Images for the welcome screen.
+WelcomeScreenImages: 
+    [
+     { Name: "Transportation", Image: "images/b1.png" },
+     { Name: "Education", Image: "images/b2.png" },
+     { Name: "City Services", Image: "images/b3.png" }
+ ],
+
+Name: Field for displaying titles of the image
+Image: Field for setting the source of image file
+
+LayerImages: Images for the subject groups.
+LayerImages:
+      [
+       { 
+        Tag: "Public Safety", 
+        Images: ["images/safety.png", "images/safety_hover.png"], 
+        isPodVisible: true
+       },
+       { 
+        Tag: "City Services", 
+        Images: ["images/city.png", "images/city_hover.png"], 
+        isPodVisible: true 
+       },
+       { 
+        Tag: "Transportation", 
+        Images: ["images/transport.png", "images/transport_hover.png"], 
+        isPodVisible: true 
+       },
+       { 
+        Tag: "Capital Projects", 
+        Images: ["images/capital.png", "images/capital_hover.png"], 
+        isPodVisible: true
+       },
+       { 
+        Tag: "Special Events",
+        Images: ["images/special_events.png", "images/special_events_hover.png"], 
+        isPodVisible: true
+       },
+       { 
+         Tag: "Water",
+          Images: ["images/water.png", "images/water_hover.png"], 
+        isPodVisible: true          
+       }
+     ],
+
+Tag: Field for specifying the layer tags
+Images: Field for Specifying source file of images for subject groups.
+isPodVisible: Flag for setting the Metric pod visibility
+
+InfoPodStatics: Specify fields for the Metric pods .
+InfoPodStatics: [
+                               { 
+                                CurrentObservation: "${OBSERVCURR}", 
+                                LatestObservation: "${OBSERV1}", 
+                                PreviousObservations: ["${OBSERV2}", "${OBSERV3}", "${OBSERV4}"], 
+                                StaticsPosition: "${INCREASEPOS}" 
+                             },
+                             { 
+                                DateObservations:
+                                ["${DATECURR}", "${DATE1}", "${DATE2}", "${DATE3}", "${DATE4}"], 
+                                DatePattern: "MMM-dd" 
+                             }
+                          ],
+
+
+ PodInformation: Update information for info pods.
+ PodInformation: "Last update on: <br><br> ${LASTUPDATE}",
+
+StatisticsKeyword: Keyword to detect the statistics layer
+StatisticsKeyword: "Stats",      
+
+// SETTINGS FOR MAP SHARING
+MapSharingOptions: Set URL for TinyURL service, and URLs for Email.
+MapSharingOptions: 	
+	                   { 
+                     TinyURLServiceURL: "http://api.bit.ly/v3/shorten?login=esri&apiKey=R_65fd9891cd882e2a96b99d4bda1be00e&uri=${0}&fo 
+   rmat=json",
+                    TinyURLResponseAttribute: "data.url",
+                    ShareByMailLink: 
+                             "mailto:%20?subject=Note%20from%20my%20Executive%20Dashboard&body=${0}"
+  }
+ 
+
+
+
+
+
+
